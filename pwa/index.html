@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Warehouse Inventory Management PWA - Tools, Spare Parts, Consumables, and Chemical Warehouse">
+    <meta name="author" content="ECC Agent">
+    <title>Warehouse Inventory Agent</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <!-- Splash screen -->
+    <div class="splash" id="splash">
+      <div class="splash-logo">📦</div>
+      <div class="splash-title">Warehouse Inventory</div>
+      <div class="splash-subtitle">AI-Powered Inventory Management</div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app" id="app" style="display: none;">
+      <!-- Top Navigation -->
+      <nav class="top-nav">
+        <div class="nav-logo">📦 Inventory</div>
+        <div class="nav-user">User</div>
+      </nav>
+
+      <!-- Header -->
+      <header class="app-header">
+        <h1><span class="emoji">📦</span> Warehouse Inventory Agent</h1>
+        <p class="header-subtext">Manage tools, spare parts, consumables, and chemical warehouse stock</p>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="stock">Stock & Inventory</button>
+          <button class="tab-btn" data-tab="repair">Repair & Sharpening</button>
+          <button class="tab-btn" data-tab="chemical">Chemical Warehouse</button>
+          <button class="tab-btn" data-tab="storage">Storage Racks</button>
+          <button class="tab-btn" data-tab="pr">Purchase Requisition</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="stock-tab">
+          <h2>Stock & Inventory</h2>
+          <div class="card">
+            <h3>Surat Jalan Input</h3>
+            <textarea id="surat-jalan" rows="2" placeholder="Masukkan nomor surat jalan dan isi barang..."></textarea>
+            <button class="btn-primary" onclick="processSuratJalan()">Process Surat Jalan</button>
+            <div class="result" id="surat-jalan-result"></div>
+          </div>
+          <div class="card">
+            <h3>Stock Report</h3>
+            <button class="btn-primary" onclick="generateStockReport()">Generate Daily Report</button>
+            <div class="result" id="stock-report"></div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="repair-tab">
+          <h2>Repair & Sharpening</h2>
+          <div class="card">
+            <h3>Catalog Tools for Sharpening</h3>
+            <textarea id="repair-catalog" rows="2" placeholder="Masukkan item code dan jumlah untuk asah/perbaikan..."></textarea>
+            <button class="btn-primary" onclick="catalogRepair()">Catalog for Repair</button>
+            <div class="result" id="repair-result"></div>
+          </div>
+          <div class="card">
+            <h3>FIFO Allocation</h3>
+            <button class="btn-primary" onclick="checkFIFO()">Check FIFO Compliance</button>
+            <div class="result" id="fifo-result"></div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="chemical-tab">
+          <h2>Chemical Warehouse</h2>
+          <div class="card">
+            <h3>FIFO Stock Check</h3>
+            <textarea id="fifo-stock" rows="2" placeholder="Masukkan stok kimia dengan tanggal terima (1 per line: nama, tanggal, qty)..."></textarea>
+            <button class="btn-primary" onclick="processFIFO()">Process FIFO</button>
+            <div class="result" id="fifo-result2"></div>
+          </div>
+          <div class="card">
+            <h3>5S Audit</h3>
+            <button class="btn-primary" onclick="run5SAudit()">Run 5S Audit</button>
+            <div class="result" id="5s-result"></div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="storage-tab">
+          <h2>Storage Racks</h2>
+          <div class="card">
+            <h3>Organize Items</h3>
+            <textarea id="organize-items" rows="2" placeholder="Masukkan item dan lokasi rak (1 per line: item-code, lokasi)..."></textarea>
+            <button class="btn-primary" onclick="organizeItems()">Organize to Racks</button>
+            <div class="result" id="organize-result"></div>
+          </div>
+          <div class="card">
+            <h3>Naming Convention</h3>
+            <p>Format: <code>CATEGORY-SUBKIND-STATUS</code></p>
+            <p>Contoh: <code>TOOL-HAND-001</code>, <code>SPARE-PUMP-MOTOR-01</code></p>
+            <button class="btn-primary" onclick="checkNaming()">Validate Naming</button>
+            <div class="result" id="naming-result"></div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="pr-tab">
+          <h2>Purchase Requisition (PR)</h2>
+          <div class="card">
+            <h3>Generate PR</h3>
+            <textarea id="pr-input" rows="3" placeholder="Masukkan detail PR (satu baris per PR: item-code|deskripsi|qty|UOM|justifikasi|supplier|tanggal)..."></textarea>
+            <button class="btn-primary" onclick="generatePR()">Generate PRs</button>
+            <div class="result" id="pr-result"></div>
+          </div>
+          <div class="card">
+            <h3>PR Format</h3>
+            <p><strong>Fields:</strong> Item Code, Description, Quantity, UOM, Justification, Preferred Supplier, Required Delivery, Budget Code</p>
+            <p><strong>Example:</strong> SPARE-BEARING-6205 | Ball bearing 6205 | 2 | pcs | Repair required for Mill #3 | ABC Manufacturing | 2026-09-15 | CAP-INV-2026</p>
+          </div>
+        </div>
+      </main>
+
+      <!-- Floating Action Button -->
+      <footer class="fab-container">
+        <button class="fab-btn" onclick="showTab('stock')" aria-label="Stock Inventory">
+          <span>📦</span>
+        </button>
+      </footer>
+    </div>
+
+    <!-- Manifest -->
+    <script src="manifest.js"></script>
+
+    <!-- Main Script -->
+    <script src="app.js"></script>
+  </body>
+</html>
