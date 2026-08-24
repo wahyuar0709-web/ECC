@@ -170,6 +170,7 @@ skills:
   - videodb
   - visa-doc-translate
   - x-api
+  - warehouse-inventory-agent
 commands:
   - aside
   - auto-update

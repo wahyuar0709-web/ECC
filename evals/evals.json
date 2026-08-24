@@ -1,0 +1,30 @@
+{
+  "skill_name": "warehouse-inventory-agent",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Surat Jalan SJ-2026-012 received from supplier. Contents: 5x TOOL-SOCKET-SET, 3x SPARE-PART-VALVE-01. Check into stock and update Excel.",
+      "expected_output": "Delivery notes verified, stock on-hand updated, daily stock report generated, discrepancies flagged if any"
+    },
+    {
+      "id": 1,
+      "prompt": "Catalog 2x TOOL-DRILL-12 and 1x TOOL-ENDMILL-5 for sharpening. Submit vendor request with 14-day turnaround.",
+      "expected_output": "Tools cataloged in repair system, vendor request submitted, units issued from stock, requestor notified of expected return date"
+    },
+    {
+      "id": 2,
+      "prompt": "Chemical warehouse FIFO check: 15 bottles ethanol received 2026-03-01, 10 bottles received 2026-05-15, 8 bottles received 2026-07-10. Which should be allocated first?",
+      "expected_output": "Oldest stock (2026-03-01) allocated first; FIFO compliance report generated; 5S audit performed"
+    },
+    {
+      "id": 3,
+      "prompt": "Move tools and spare parts to storage racks. Hand tools go together, spare parts by machine type. Update rack locations in system.",
+      "expected_output": "Items relocated to racks, rack locations updated in inventory, visual management board refreshed with new locations"
+    },
+    {
+      "id": 4,
+      "prompt": "Generate PR for: 1) sharpening service for 3 pending tools, 2) replenishment of TOOL-HEX-SET-10 from 2 to minimum 5 units. Submit to warehouse supervisor.",
+      "expected_output": "Two PRs generated with correct format: sharpening service PR and replenishment PR; both submitted to approver; PR status tracked"
+    }
+  ]
+}
